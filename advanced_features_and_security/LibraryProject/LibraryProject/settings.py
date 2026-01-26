@@ -135,3 +135,5 @@ SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 SECURE_HSTS_PRELOAD = True
 # Prevent clickjacking by disallowing embedding in iframes
 X_FRAME_OPTIONS = 'DENY'
+# Tell Django to trust the X-Forwarded-Proto header from the proxy
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
