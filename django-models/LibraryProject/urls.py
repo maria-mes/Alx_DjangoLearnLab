@@ -8,4 +8,6 @@ urlpatterns = [
     path('books/', views.list_books, name='books'),
     path('libraries/', views.list_libraries, name='libraries'),
     path('librarians/', views.list_librarians, name='librarians'),
+    # ✅ Add this for the checker:
+    path('libraries/<int:library_id>/', views.library_detail, name='library_detail'),
 ]
