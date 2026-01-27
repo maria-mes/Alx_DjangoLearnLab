@@ -1,0 +1,6 @@
+<h1>Librarians</h1>
+<ul>
+  {% for librarian in librarians %}
+    <li>{{ librarian.name }} ({{ librarian.library.name }})</li>
+  {% endfor %}
+</ul>
