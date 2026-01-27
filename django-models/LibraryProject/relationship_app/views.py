@@ -7,6 +7,23 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from .models import UserProfile
+from django.contrib.auth.decorators import permission_required
+from .models import Book
+
+@permission_required('relationship_app.can_add_book')
+def add_book(request):
+    # placeholder logic
+    return render(request, 'relationship_app/add_book.html')
+
+@permission_required('relationship_app.can_change_book')
+def change_book(request, book_id):
+    # placeholder logic
+    return render(request, 'relationship_app/change_book.html')
+
+@permission_required('relationship_app.can_delete_book')
+def delete_book(request, book_id):
+    # placeholder logic
+    return render(request, 'relationship_app/delete_book.html')
 
 @login_required
 def admin_view(request):
