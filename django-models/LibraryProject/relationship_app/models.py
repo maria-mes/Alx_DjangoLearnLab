@@ -1,5 +1,6 @@
-from django.db import models
+
 from django.contrib.auth.models import User
+from django.db import models
 
 class UserProfile(models.Model):
     ROLE_CHOICES = [
@@ -12,6 +13,12 @@ class UserProfile(models.Model):
 
     def __str__(self):
         return f"{self.user.username} ({self.role})"
+
+    class Meta:
+        permissions = [
+            ("can_view_admin_page", "Can view admin-only page"),
+            ("can_manage_members", "Can manage members"),
+        ]
 
 class Author(models.Model):
     name = models.CharField(max_length=100)
