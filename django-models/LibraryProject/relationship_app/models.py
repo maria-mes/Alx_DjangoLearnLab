@@ -18,6 +18,10 @@ class UserProfile(models.Model):
         permissions = [
             ("can_view_admin_page", "Can view admin-only page"),
             ("can_manage_members", "Can manage members"),
+            ("can_add_book", "Can add book"), 
+            ("can_change_book", "Can change book"), 
+            ("can_delete_book", "Can delete book"),
+            
         ]
 
 class Author(models.Model):
