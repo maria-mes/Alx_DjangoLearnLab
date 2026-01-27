@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from .models import Library
+from django.views.generic.detail import DetailView
 from .models import Author, Book, Librarian
 
 def library_detail(request, library_id):
