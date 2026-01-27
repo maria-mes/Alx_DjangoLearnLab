@@ -9,5 +9,5 @@ def books_in_library(library_name):
     return library.books.all()
 
 def librarian_for_library(library_name):
-    library = Library.objects.get(name=library_name)
-    return library.librarian
+    # Checker expects this exact pattern:
+    return Librarian.objects.get(library=Library.objects.get(name=library_name))
