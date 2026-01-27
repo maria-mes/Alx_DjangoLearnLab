@@ -18,3 +18,7 @@ def list_books(request):
 
 def list_libraries(request):
     libraries = Library.objects
+class LibraryDetailView(View): 
+    def get(self, request, library_id): 
+        library = get_object_or_404(Library, id=library_id) 
+        return render(request, 'relationship_app/library_detail.html', {'library': library})
