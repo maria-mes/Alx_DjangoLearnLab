@@ -5,7 +5,7 @@ from .models import Author, Book, Librarian
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 
-def signup(request):
+def register(request):
     if request.method == "POST":
         form = UserCreationForm(request.POST)
         if form.is_valid():
