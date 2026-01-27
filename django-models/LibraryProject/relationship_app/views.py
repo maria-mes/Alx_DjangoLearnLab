@@ -1,5 +1,6 @@
 from django.shortcuts import render
-from .models import Author, Book, Library, Librarian
+from .models import Library
+from .models import Author, Book, Librarian
 
 def library_detail(request, library_id):
     library = get_object_or_404(Library, id=library_id) # <-- use library object 
