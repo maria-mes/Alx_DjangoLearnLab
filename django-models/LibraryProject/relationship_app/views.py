@@ -1,7 +1,22 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Library
 from django.views.generic.detail import DetailView
 from .models import Author, Book, Librarian
+from django.contrib.auth import login
+from django.contrib.auth.forms import UserCreationForm
+
+def signup(request):
+    if request.method == "POST":
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)   # logs in the new user
+            return redirect('authors')  # redirect to any page you want
+    else:
+        form = UserCreationForm()
+    return render(request, 'relationship_app/signup.html', {'form': form})
+
+
 
 def library_detail(request, library_id):
     library = get_object_or_404(Library, id=library_id) # <-- use library object 
