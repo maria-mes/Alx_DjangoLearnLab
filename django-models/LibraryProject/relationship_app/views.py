@@ -9,6 +9,15 @@ from django.http import HttpResponse
 from .models import UserProfile
 from django.contrib.auth.decorators import permission_required
 from .models import Book
+from django.contrib.auth.decorators import user_passes_test
+def is_admin(user):
+    return hasattr(user, 'userprofile') and user.userprofile.role == 'Admin'
+
+def is_librarian(user):
+    return hasattr(user, 'userprofile') and user.userprofile.role == 'Librarian'
+
+def is_member(user):
+    return hasattr(user, 'userprofile') and user.userprofile.role == 'Member'
 
 @permission_required('relationship_app.can_add_book')
 def add_book(request):
@@ -35,6 +44,15 @@ def admin_view(request):
             return HttpResponse("Access denied. You must be an Admin to view this page.")
     except UserProfile.DoesNotExist:
         return HttpResponse("No profile found for this user.")
+
+@user_passes_test(is_librarian)
+def librarian_view(request):
+    return render(request, 'relationship_app/librarian_view.html')
+
+@user_passes_test(is_member)
+def member_view(request):
+    return render(request, 'relationship_app/member_view.html')
+
 
 def register(request):
     if request.method == "POST":
