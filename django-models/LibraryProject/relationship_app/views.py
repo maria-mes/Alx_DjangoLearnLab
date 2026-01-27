@@ -4,6 +4,20 @@ from django.views.generic.detail import DetailView
 from .models import Author, Book, Librarian
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
+from .models import UserProfile
+
+@login_required
+def admin_view(request):
+    try:
+        profile = UserProfile.objects.get(user=request.user)
+        if profile.role == "Admin":
+            return HttpResponse("Welcome Admin! This is the protected admin view.")
+        else:
+            return HttpResponse("Access denied. You must be an Admin to view this page.")
+    except UserProfile.DoesNotExist:
+        return HttpResponse("No profile found for this user.")
 
 def register(request):
     if request.method == "POST":
