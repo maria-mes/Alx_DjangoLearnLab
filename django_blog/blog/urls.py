@@ -27,4 +27,5 @@ urlpatterns = [
 
     # Search
     path('search/', search_posts, name='search-posts'),
+    path('tag/<str:tag_name>/', tag_posts, name='tag-posts'),
 ]
