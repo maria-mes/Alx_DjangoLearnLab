@@ -9,6 +9,7 @@ from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import LoginView, LogoutView
 from .forms import RegisterForm
+from django.urls import reverse_lazy
 
 class CustomLoginView(LoginView):
     template_name = 'blog/login.html'
