@@ -112,13 +112,21 @@ class CommentDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         comment = self.get_object()
         return self.request.user == comment.author
 
-
 def search_posts(request):
     query = request.GET.get('q')
-    results = Post.objects.filter(
-        Q(title__icontains=query) | Q(content__icontains=query) | Q(tags__name__icontains=query)
-    ).distinct()
+    results = []
+    if query:
+        results = Post.objects.filter(
+            Q(title__icontains=query) |
+            Q(content__icontains=query) |
+            Q(tags__name__icontains=query)
+        ).distinct()
     return render(request, 'blog/search_results.html', {'results': results, 'query': query})
+
+def tag_posts(request, tag_name):
+    tag = get_object_or_404(Tag, name=tag_name)
+    posts = tag.posts.all()
+    return render(request, 'blog/tag_posts.html', {'tag': tag, 'posts': posts})
 
 class CommentCreateView(LoginRequiredMixin, CreateView):
     model = Comment
