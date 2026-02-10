@@ -7,6 +7,12 @@ class PostForm(forms.ModelForm):
     class Meta:
         model = Post
         fields = ['title', 'content', 'tags']
+    def clean_content(self):
+        content = self.cleaned_data.get('content')
+        if len(content.strip()) < 3:
+            raise forms.ValidationError("Comment must be at least 3 characters long.")
+        return content
+
 
 
 class CommentForm(forms.ModelForm):
