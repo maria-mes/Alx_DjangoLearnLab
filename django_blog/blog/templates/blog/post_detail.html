@@ -1,0 +1,23 @@
+{% extends "blog/base.html" %}
+{% block title %}{{ object.title }}{% endblock %}
+{% block content %}
+  <h2>{{ object.title }}</h2>
+  <p>{{ object.content }}</p>
+  <p>By {{ object.author }} on {{ object.published_date }}</p>
+
+  <h3>Tags</h3>
+  {% for tag in object.tags.all %}
+    <span>{{ tag.name }}</span>
+  {% empty %}
+    <p>No tags.</p>
+  {% endfor %}
+
+  <h3>Comments</h3>
+  {% for comment in object.comments.all %}
+    <p><strong>{{ comment.author }}</strong>: {{ comment.content }}</p>
+  {% empty %}
+    <p>No comments yet.</p>
+  {% endfor %}
+
+  <a href="{% url 'add-comment' object.pk %}">Add Comment</a>
+{% endblock %}
