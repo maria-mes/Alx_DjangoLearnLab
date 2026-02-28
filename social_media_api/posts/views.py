@@ -3,6 +3,7 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from .models import Post, Comment, Like
 from .serializers import PostSerializer, CommentSerializer, LikeSerializer
+from notifications.models import Notification  # import Notification model
 
 # CRUD for posts
 class PostViewSet(viewsets.ModelViewSet):
@@ -43,6 +44,13 @@ class LikePostView(generics.GenericAPIView):
         post = generics.get_object_or_404(Post, pk=pk)
         like, created = Like.objects.get_or_create(user=request.user, post=post)
         if created:
+            # Create notification for the post author
+            Notification.objects.create(
+                recipient=post.author,
+                actor=request.user,
+                verb="liked your post",
+                target=post
+            )
             return Response({'status': 'post liked'}, status=status.HTTP_201_CREATED)
         return Response({'status': 'already liked'}, status=status.HTTP_200_OK)
 
