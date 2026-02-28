@@ -39,9 +39,10 @@ class Post(models.Model):
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    tags = models.ManyToManyField(Tag, related_name='posts', blank=True)
 
     def __str__(self):
-        return self.title
+        return f"{self.author}: {self.content[:30]}"
 
 class Comment(models.Model):
     post = models.ForeignKey(Post, related_name="comments", on_delete=models.CASCADE)
