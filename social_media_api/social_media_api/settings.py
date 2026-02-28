@@ -25,7 +25,13 @@ SECRET_KEY = 'django-insecure-($a78=reb4hov1a)1k^pa@vn8@(34(k!db8ud9enl-123(*#to
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']  # or specify your domain/Heroku app
+
+# Security settings
+SECURE_BROWSER_XSS_FILTER = True
+X_FRAME_OPTIONS = 'DENY'
+SECURE_SSL_REDIRECT = True
+
 
 
 # Application definition
