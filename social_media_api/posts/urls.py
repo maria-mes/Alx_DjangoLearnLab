@@ -6,6 +6,8 @@ from .views import PostViewSet, CommentViewSet, feed
 router = DefaultRouter()
 router.register(r'posts', PostViewSet, basename='post')
 router.register(r'comments', CommentViewSet, basename='comment')
+router.register(r'posts', PostViewSet, basename='post')
+# like/unlike handled by PostViewSet actions
 
 urlpatterns = [
     # CRUD routes for posts and comments
