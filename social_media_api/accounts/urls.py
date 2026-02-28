@@ -7,13 +7,15 @@ router = DefaultRouter()
 router.register(r'users', UserViewSet, basename='user')
 
 urlpatterns = [
+    # Authentication
     path("register/", RegisterView.as_view(), name="register"),
     path("login/", obtain_auth_token, name="login"),
     path("profile/", ProfileView.as_view(), name="profile"),
 
-    # Follow/unfollow using GenericAPIView
-    path("users/<int:pk>/followuser/", FollowUserView.as_view(), name="followuser"),
-    path("users/<int:pk>/unfollowuser/", UnfollowUserView.as_view(), name="unfollowuser"),
+    # Explicit follow/unfollow endpoints (validator requirement)
+    path("follow/<int:user_id>/", FollowUserView.as_view(), name="follow"),
+    path("unfollow/<int:user_id>/", UnfollowUserView.as_view(), name="unfollow"),
 
+    # UserViewSet routes
     path("", include(router.urls)),
 ]
