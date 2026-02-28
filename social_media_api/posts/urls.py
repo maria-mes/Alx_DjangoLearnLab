@@ -1,13 +1,11 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from .views import PostViewSet, CommentViewSet, feed
+from .views import PostViewSet, CommentViewSet, feed, LikePostView, UnlikePostView
 
 # Router for posts and comments
 router = DefaultRouter()
 router.register(r'posts', PostViewSet, basename='post')
 router.register(r'comments', CommentViewSet, basename='comment')
-router.register(r'posts', PostViewSet, basename='post')
-# like/unlike handled by PostViewSet actions
 
 urlpatterns = [
     # CRUD routes for posts and comments
@@ -15,4 +13,8 @@ urlpatterns = [
 
     # Feed endpoint (Task 2)
     path("feed/", feed, name="feed"),
+
+    # Like/Unlike endpoints (Task 3)
+    path("posts/<int:pk>/like/", LikePostView.as_view(), name="like-post"),
+    path("posts/<int:pk>/unlike/", UnlikePostView.as_view(), name="unlike-post"),
 ]
